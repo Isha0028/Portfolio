@@ -117,3 +117,50 @@ body {
 .reveal {
   opacity: 0;
 }
+
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 999px;
+  border: 1px solid var(--color-cyan);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease, opacity 0.25s ease;
+}
+
+.cursor-ring.cursor-hover {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  background: color-mix(in srgb, var(--color-cyan) 15%, transparent);
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 999px;
+  background: var(--color-cyan);
+  pointer-events: none;
+}
+
+@media (pointer: coarse) {
+  .cursor-ring,
+  .cursor-dot {
+    display: none;
+  }
+}

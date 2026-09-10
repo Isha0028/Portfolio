@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { animate, stagger } from "animejs";
+import { gsap } from "../lib/gsap";
 
 interface RevealProps {
   children: ReactNode;
@@ -13,7 +13,7 @@ export default function Reveal({
   children,
   className = "",
   delay = 0,
-  y = 28,
+  y = 40,
   staggerChildren = false,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -22,27 +22,29 @@ export default function Reveal({
     const el = ref.current;
     if (!el) return;
 
-    const targets: Element | Element[] = staggerChildren ? Array.from(el.children) : el;
+    const targets: Element[] = staggerChildren ? Array.from(el.children) : [el];
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          animate(targets, {
-            opacity: [0, 1],
-            y: [y, 0],
-            duration: 900,
-            delay: staggerChildren ? stagger(90, { start: delay }) : delay,
-            ease: "outQuart",
-          });
-          io.unobserve(el);
-        });
-      },
-      { threshold: 0.15 }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        targets,
+        { opacity: 0, y },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: delay / 1000,
+          stagger: staggerChildren ? 0.1 : 0,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }, el);
 
-    io.observe(el);
-    return () => io.disconnect();
+    return () => ctx.revert();
   }, [delay, y, staggerChildren]);
 
   return (

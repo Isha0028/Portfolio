@@ -6,9 +6,9 @@ const links = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
   { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
+  { href: "#projects", label: "Work" },
   { href: "#education", label: "Education" },
-  { href: "#achievements", label: "Achievements" },
+  { href: "#achievements", label: "Awards" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -30,16 +30,18 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="font-display text-lg font-semibold text-white">
-          <span className="text-gradient">{"<"}</span>Isha
-          <span className="text-gradient">{" />"}</span>
+        <a href="#top" className="flex items-center gap-2 font-display text-base font-bold text-white">
+          <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-cyan via-violet to-pink">
+            <span className="h-2.5 w-2.5 rounded-full bg-ink" />
+          </span>
+          Isha
         </a>
 
-        <ul className="hidden items-center gap-8 font-mono text-sm text-mist md:flex">
-          {links.map((link, i) => (
+        <ul className="hidden items-center gap-7 text-sm font-medium text-mist md:flex">
+          {links.map((link) => (
             <li key={link.href}>
-              <a href={link.href} className="transition-colors hover:text-cyan">
-                <span className="text-cyan/70">0{i + 1}.</span> {link.label}
+              <a href={link.href} className="transition-colors hover:text-white">
+                {link.label}
               </a>
             </li>
           ))}
@@ -48,7 +50,7 @@ export default function Navbar() {
         <a
           href={profile.resumeUrl}
           download
-          className="hidden rounded-full border border-cyan/40 px-5 py-2 font-mono text-sm text-cyan transition-colors hover:bg-cyan/10 md:inline-block"
+          className="hidden rounded-full bg-gradient-to-r from-cyan via-violet to-pink px-5 py-2 text-sm font-semibold text-ink md:inline-block"
         >
           Resume
         </a>
@@ -64,11 +66,11 @@ export default function Navbar() {
 
       {open && (
         <div className="glass border-t border-line px-6 pb-6 md:hidden">
-          <ul className="flex flex-col gap-4 pt-4 font-mono text-sm text-mist">
-            {links.map((link, i) => (
+          <ul className="flex flex-col gap-4 pt-4 text-sm font-medium text-mist">
+            {links.map((link) => (
               <li key={link.href}>
-                <a href={link.href} onClick={() => setOpen(false)} className="hover:text-cyan">
-                  <span className="text-cyan/70">0{i + 1}.</span> {link.label}
+                <a href={link.href} onClick={() => setOpen(false)} className="hover:text-white">
+                  {link.label}
                 </a>
               </li>
             ))}
@@ -76,7 +78,7 @@ export default function Navbar() {
               <a
                 href={profile.resumeUrl}
                 download
-                className="mt-2 inline-block rounded-full border border-cyan/40 px-5 py-2 text-cyan"
+                className="mt-2 inline-block rounded-full bg-gradient-to-r from-cyan via-violet to-pink px-5 py-2 font-semibold text-ink"
               >
                 Resume
               </a>
